@@ -111,10 +111,12 @@ public class ScannerModule extends ReactContextBaseJavaModule implements Activit
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(resultCode, data);
-        mCallback.invoke(result.getContents(), result.getBarcodeImagePath());
+        if(mCallback != null){
+            mCallback.invoke(result.getContents(), result.getBarcodeImagePath());
         
-        // Remove the listener since we are removing this activity.
-        mReactContext.removeActivityEventListener(this);
+            // Remove the listener since we are removing this activity.
+            mReactContext.removeActivityEventListener(this);
+        }
     }
 
     @Override
